@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block body %}
+
+{% with messages = get_flashed_messages() %}
+    {% if messages %}
+        <div class="alert alert-primary" role="alert">
+            <ul class=flashes>
+                {% for message in messages %}
+                    <li class="text-center">{{ message }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+{% endwith %}
+
+<ul class="list-group list-group-horizontal w=">
+    <li class="list-group-item w-25"><b>Name</b></li>
+    <li class="list-group-item w-25"><b>Project</b></li>
+    <li class="list-group-item w-50"><b>Description</b></li>
+    <li class="list-group-item w-50"><b>Download</b></li>
+</ul>
+{% for key, value in models.items() %}
+    <ul class="list-group list-group-horizontal">
+        <li class="list-group-item w-25"> <a href="/three?name={{ key }}"> {{ key }} </a></li>
+        <li class="list-group-item w-25">{{ value[1] }}</li>
+        <li class="list-group-item w-50">{{ value[0] }}</li>
+        <li class="list-group-item w-25"> <a href="/download?name={{ key }}"> download (For subscribers only) </a></li>
+    </ul>
+{% endfor %}
+
+{% endblock %}

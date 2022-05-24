@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+
+{% block ref %}
+    <link rel="stylesheet"
+     href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.4.0/min/dropzone.min.css"/>
+    <link rel="stylesheet"
+     href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.4.0/min/basic.min.css"/>
+    <script type="application/javascript"
+     src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.4.0/min/dropzone.min.js">
+    </script>
+{% endblock %}
+
+{% block title %}
+New model
+{% endblock %}
+
+{% block style%}
+
+{% endblock %}
+
+{% block body %}
+
+<div class = 'mb-1 mt-1'>
+    <form method="POST" action='/upload' class="dropzone dz-clickable"
+        id="dropper" enctype="multipart/form-data">
+    </form>
+</div>
+
+<div class = 'mb-1 mt-1'>
+    <form id="model" enctype="multipart/form-data" method="post">
+        <div class="mb-3">
+            <input type="text" class="form-control" name="name" placeholder="Name" required>
+        </div>
+        <div class="mb-3">
+            <input type="text" class="form-control" name="project" placeholder="Project">
+        </div>
+        <div class="mb-3">
+            <textarea class="form-control" id="exampleFormControlTextarea1" name="description" placeholder="Description"></textarea>
+        </div>
+        <button type="submit" class="btn btn-outline-light">Add model</button>
+    </form>
+</div>
+
+
+<script type="text/javascript">
+$(document).ready(function(file_id, name_id){
+     $('[data-toggle="tooltip"]').tooltip();
+});
+</script>
+
+<script>
+updateList = function(file_id, name_id) {
+    var input = document.getElementById(file_id);
+    var output = document.getElementById(name_id);
+    var children = "";
+    for (var i = 0; i < input.files.length; ++i) {
+        children += '<li>' + input.files.item(i).name + '</li>';
+    }
+    output.innerHTML = '<ul>'+children+'</ul>';
+}
+</script>
+<script type="application/javascript">
+Dropzone.options.dropper = {
+    paramName: 'file',
+    chunking: true,
+    forceChunking: true,
+    url: '/upload',
+    maxFilesize: 1025,
+    chunkSize: 327680
+}
+</script>
+{% endblock %}

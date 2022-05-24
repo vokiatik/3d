@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Profile page
+{% endblock %}
+
+{% block style%}
+body {
+    background-color: #eee
+}
+
+.card {
+    background-color: #fff;
+    width: 280px;
+    border-radius: 33px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    padding: 2rem !important
+}
+
+.top-container {
+    display: flex;
+    align-items: center
+}
+
+.profile-image {
+    border-radius: 10px;
+    border: 2px solid #5957f9
+}
+
+.name {
+    font-size: 15px;
+    font-weight: bold;
+    color: #272727;
+    position: relative;
+    top: 8px
+}
+
+{% endblock %}
+
+{% block body %}
+
+{% with messages = get_flashed_messages() %}
+    {% if messages %}
+        <div class="alert alert-primary" role="alert">
+            <ul class=flashes>
+                {% for message in messages %}
+                    <li class="text-center">{{ message }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+{% endwith %}
+
+<div class="container d-flex justify-content-center mt-5">
+    <div class="card">
+        <div class="top-container"> <img src="static/images/profile.png" class="img-fluid profile-image" width="90">
+            <div class="ml-3">
+                <a>Name:</a><h5 class="name">{{ current_user.username }}</h5>
+            </div>
+        </div>
+
+        {% if current_user.has_roles('Admin') %}
+            <a href="{{ url_for('admin.index') }}" class="text-dark fw-bold"> Admin interface</a>
+            <a href="{{ url_for('add_new_file') }}" class="text-dark fw-bold"> Upload new model</a>
+            <a href="{{ url_for('works') }}" class="text-dark fw-bold"> Dashboards</a>
+        {% endif %}
+        <div class="form-text text-center mb-1 mt-2 text-dark">
+            <a> Want to </a>
+            <a href="{{ url_for('logout') }}" class="text-dark fw-bold"> log out?</a>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

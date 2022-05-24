@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>My first three.js app</title>
+		<style>
+			body { margin: 0; }
+
+			canvas {
+				position: fixed;
+				top 0;
+				left 0;
+			}
+		</style>
+	</head>
+	<body>
+	<canvas id="bg"></canvas>
+	<script type="text/javascript">
+	  const name = {{ model.name|tojson|safe }}
+	</script>
+	<script type="module" src="{{ url_for('static',filename='js/main.js') }}">
+	</script>
+	</body>
+</html>
